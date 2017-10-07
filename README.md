@@ -19,7 +19,7 @@ JavaScript Gotchas and Common Mistakes
  Why?
  
  Because of coercion. Javascript sees a string and like a benovalent language that Javascript is, it tries to fix this itself. Now if condition needs a Boolean output, So compiler tries to convert a string into boolean operator.
- This is how toBoolean is supposed to work as per Sec 9.2 of ECMA-262
+ This is how toBoolean is supposed to work as per Sec 7.1.2 of [ECMA-262](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf)
   > The result is false if the argument is the empty String (its length is zero); otherwise the result is true. 
   
   So Empty string will return false and rest everything will return true.  
