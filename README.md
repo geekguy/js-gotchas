@@ -16,6 +16,7 @@ JavaScript Gotchas and Common Mistakes
           console.log('boom'); 
         }
       ```
+
  Why?
  
  Because of coercion. Javascript sees a string and like a benovalent language that Javascript is, it tries to fix this itself. Now if condition needs a Boolean output, So compiler tries to convert a string into boolean operator.
@@ -33,3 +34,14 @@ JavaScript Gotchas and Common Mistakes
  
 People might assume that if MAX_VALUE is the greatest positive number, MIN_VALUE will contain the greatest negative number. Wrong. MIN_VALUE contains the smallest positive number. It should have been ideally named as MIN_POSITIVE_VALUE.
  
+
+3. NaN is not a NaN.
+      ```js
+      NaN === NaN   // false
+      ```
+    During the evaluation of a tripple equals `a === b` following things are considered. FYI `typeof NaN` is `number`
+    - If `typeof a` is different from `typeof b`, return `false`.
+    - If `typeof a` is `number`, then
+      - If a is NaN, return `false`.
+      - If b is NaN, return `false`.
+
