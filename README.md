@@ -16,3 +16,4 @@ JavaScript Gotchas and Common Mistakes
           console.log('boom'); 
         }
       ```
+2. Load scripts in order of dependency requirements.
