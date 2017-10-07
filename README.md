@@ -16,3 +16,13 @@ JavaScript Gotchas and Common Mistakes
           console.log('boom'); 
         }
       ```
+
+2. NaN is not a NaN.
+      ```js
+      NaN === NaN   // false
+      ```
+    During the evaluation of a tripple equals `a === b` following things are considered. FYI `typeof NaN` is `number`
+    - If `typeof a` is different from `typeof b`, return `false`.
+    - If `typeof a` is `number`, then
+      - If a is NaN, return `false`.
+      - If b is NaN, return `false`.
