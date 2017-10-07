@@ -47,7 +47,7 @@ NaN === NaN   // false
       - If a is NaN, return `false`.
       - If b is NaN, return `false`.
 
-### 4. JS handles null and undefined for date functions.
+### 4. JS handles null and undefined differently for date functions.
 ```js
 let a = new Date(undefined);
 console.log(a);         // prints "Invalid Date"
@@ -67,14 +67,14 @@ console.log(e);         // prints "Thu Jan 01 1970 05:30:00 GMT+0530 (IST)" -> S
 let f = new Date(0);
 console.log(f);         // prints "Thu Jan 01 1970 05:30:00 GMT+0530 (IST)" -> Again epoch time 0
 ```
-      Although when no parameters are passed to a function as argument, its value is assigned undefined. But in the case of Date constructor these cases are treated differently. Some internal logic inside Date() constructor but can cause lot of unexpected results if someone uses
+   Although when no parameters are passed to a function as argument, its value is assigned undefined. But in the case of Date constructor these cases are treated differently. Some internal logic inside Date() constructor but can cause lot of unexpected results if someone uses
 ```js
 function printDate(param1){
   console.log(new Date(param1));
 }
 printDate(object.scheduledDate);
 ```
-      In this case if we expect that if ``` object.scheduledDate ``` is ``` undefined ``` then print current date or else print the scheduled date. But this *js-gotcha* will give unexpected result and you will loose half of your hair.
+   In this case if we expect that if ``` object.scheduledDate ``` is ``` undefined ``` then print current date or else print the scheduled date. But this *js-gotcha* will give unexpected result and you will loose half of your hair.
 
 ### 5. Load scripts in order of dependency requirements. 
 The simplified explanation of this issue is that a variable or function cannot be referenced or called prior to being defined elsewhere in the code. Where scripts require other scripts, or content requires a particular loading order, this may become more complex. In the following example, script1.js is loaded after the testVar1 function executes, thus varInScript1 is not defined and errors in the browser. 
