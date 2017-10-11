@@ -97,4 +97,24 @@ The simplified explanation of this issue is that a variable or function cannot b
     </html>
     ```
 
+### 6. There is no block-level scope.
+JavaScript does not create a new scope for each code block.
+```
+while (true){
+	var a = 1;
+	break;
+}
+console.log(a);         // will print 1
+
+for (var b = 0; b < 2; b++){
+    // do nothing
+}
+console.log(b);         // will print 2
+
+{
+	var c = 3;
+}
+console.log(c);         //will print 3
+```
+
 By extrapolating this use case into more complicated environments, implementing dependency handling solutions, such as RequireJS, may assist to track and handle dependency requirements.
