@@ -103,38 +103,66 @@ By extrapolating this use case into more complicated environments, implementing 
 In other languages, you can set null to variables. JavaScript uses undefined and null, but it defaults variables to undefined and objects to null. These values are assigned when an incorrect calculation is made or you assign a null reference to an object. For an object to be null, it must be defined, so you must be careful when you compare objects.
 
 The following code will give you an error if the object is undefined:
-        ```
+
+        ```js
         if (object !== null && typeof object !== "undefined")
+        
         ```
+        
 Always check if the object is undefined first, then identify if it’s null.
+       
         ```
         if (typeof object !== "undefined" && object!== null)
+        
         ```
+        
 ### 7. Incorrect use of function definitions inside for loops
 
 Consider this code:
-        ```
+       
+       ```js
         var elements = document.getElementsByTagName('input');
+        
         var n = elements.length;    // assume we have 10 elements for this example
+        
         for (var i = 0; i < n; i++) {
+        
             elements[i].onclick = function() {
+            
                 console.log("This is element #" + i);
+                
             };
+            
         }
+        
         ```
+        
 Based on the above code, if there were 10 input elements, clicking any of them would display “This is element #10”! This is because, by the time onclick is invoked for any of the elements, the above for loop will have completed and the value of i will already be 10 (for all of them).
 
 Here’s how we can correct the above code problems, though, to achieve the desired behavior:
-        ```
+        
+        ```js
+        
         var elements = document.getElementsByTagName('input');
+        
         var n = elements.length;    // assume we have 10 elements for this example
+        
         var makeHandler = function(num) {  // outer function
+        
              return function() {   // inner function
+             
                  console.log("This is element #" + num);
+                 
              };
+             
         };
+        
         for (var i = 0; i < n; i++) {
+        
             elements[i].onclick = makeHandler(i+1);
+            
         }
+        
         ```
+        
 In this revised version of the code, makeHandler is immediately executed each time we pass through the loop, each time receiving the then-current value of i+1 and binding it to a scoped num variable. The outer function returns the inner function (which also uses this scoped num variable) and the element’s onclick is set to that inner function. This ensures that each onclick receives and uses the proper i value (via the scoped num variable).
