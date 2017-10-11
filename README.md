@@ -98,3 +98,29 @@ The simplified explanation of this issue is that a variable or function cannot b
     ```
 
 By extrapolating this use case into more complicated environments, implementing dependency handling solutions, such as RequireJS, may assist to track and handle dependency requirements.
+
+### 6. Comparing null and zero
+
+```js
+console.log(null == 0); // false
+console.log(null >  0); // false
+console.log(null >= 0); // true
+```
+>What really happens is that the *Greater-than-or-equal Operator*  (`>=`), performs type coercion ([`ToPrimitive`](http://www.ecma-international.org/ecma-262/5.1/#sec-9.1)), with a >*hint* type of `Number`, actually all the relational operators have this behavior.
+>
+>`null` is treated in a special way by the *Equals Operator* (`==`). In a brief, it only *coerces* to `undefined`:
+>
+>    null == null; // true
+>    null == undefined; // true
+>
+>Value such as `false`, `''`, `'0'`, and `[]` are subject to numeric type coercion, all of them coerce to zero.
+>
+>You can see the inner details of this process in the [The Abstract Equality Comparison Algorithm](http://www.ecma-international.org/ecma-262/5.1/#sec-11.9.3) and [The Abstract Relational Comparison Algorithm](http://www.ecma-international.org/ecma-262/5.1/#sec-11.8.5).
+>
+>In Summary: 
+>
+>* Relational Comparison: if both values are not type String, `ToNumber` is called on both. This is the same as adding a `+` in front, which for null coerces to `0`. 
+>
+>* Equality Comparison: only calls `ToNumber` on Strings, Numbers, and Booleans.
+>
+([source](https://stackoverflow.com/a/2910608/100184))
