@@ -98,3 +98,28 @@ The simplified explanation of this issue is that a variable or function cannot b
     ```
 
 By extrapolating this use case into more complicated environments, implementing dependency handling solutions, such as RequireJS, may assist to track and handle dependency requirements.
+
+### 3. Data type in strict comparison.
+```
+var x = 10;
+var y = "10";
+if (x === y) //false
+```
+but
+```
+var x = 10;
+var y = "10";
+if (x == y) //true
+```
+
+When using strict comparison (===) the data type does matter. 
+This is good to know when using the switch-statement since it is using strict comparison!
+
+```
+var x = 1;
+switch(x) {
+    case 1: alert("Hello");
+}
+```
+
+This will trigger the alert.
