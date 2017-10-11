@@ -98,3 +98,41 @@ The simplified explanation of this issue is that a variable or function cannot b
     ```
 
 By extrapolating this use case into more complicated environments, implementing dependency handling solutions, such as RequireJS, may assist to track and handle dependency requirements.
+
+### 6. Preventing visual jitter or UI unresponsiveness, commonly confused behaviour of setInterval vs setTimeout.
+
+Consider you need to process a batch of data, typically you would fill a queue and use a timer to process the queue in chunks in order to keep the UI responsive. A common mistake is to use setInterval how long your processing takes. The problem is that the time taken is different from PC to PC and you could have to set the value arbitrarily low to support all users.
+
+#### Using setInterval
+
+Set interval triggers the function to **start every X milliseconds**. The problem arises when it takes longer than X milliseconds. You could start getting overlap and eventually get behind in processing.
+
+```js
+var data = [...];
+setInterval(function(){
+    processData(data.shift());
+}, 10);
+```
+
+What happens when ```processData``` takes longer than 10ms? You will start getting a backlog of processing and you will bring the browser to a halt if this goes on for long.
+
+#### Using setTimeout
+
+A more preferred method would be setTimeout. Process a reasonable size chunk and **set the next time we should process** a chunk of data.
+
+```js
+var data = [...];
+function run() {
+    processData(data.shift());
+    setTimeout(run, 10);
+}
+run();
+```
+
+In this example, first we ```processData```, then we wait 10ms before processing the next. The UI could still become unresponsive or jitter if ```processData``` takes excessive amount of time. If you cannot keep the UI responsive with one batch of processing you should consider obtimizing your code or consider using Web Workers.
+
+#### Using a Web Worker
+
+If your users are using a more modern browser it may be wiser to use Web Workers. The browser will fork these tasks off to another thread whereas setTimeout and setInterval are simply "emulated threads". Using web workers you should not have to worry about processing data in "chunks" to keep the UI responsive.
+
+I have yet to use Web Workers - leaving this section for someone else's PR :)
