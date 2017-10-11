@@ -99,7 +99,7 @@ The simplified explanation of this issue is that a variable or function cannot b
 
 By extrapolating this use case into more complicated environments, implementing dependency handling solutions, such as RequireJS, may assist to track and handle dependency requirements.
 
-### 3. Data type in strict comparison.
+### 6. Data type in strict comparison.
 ```
 var x = 10;
 var y = "10";
