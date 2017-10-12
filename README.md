@@ -40,6 +40,7 @@ People might assume that if MAX_VALUE is the greatest positive number, MIN_VALUE
 ### 3. NaN is not a NaN.
 ```js
 NaN === NaN   // false
+isNaN(NaN) // true
 ```
     During the evaluation of a tripple equals `a === b` following things are considered. FYI `typeof NaN` is `number`
     - If `typeof a` is different from `typeof b`, return `false`.
@@ -98,3 +99,39 @@ The simplified explanation of this issue is that a variable or function cannot b
     ```
 
 By extrapolating this use case into more complicated environments, implementing dependency handling solutions, such as RequireJS, may assist to track and handle dependency requirements.
+
+### 6. Array and Object equality
+```javascript
+[1,2,3] === [1,2,3] // false
+{"foo":"bar"} === {"foo":"bar"} // false
+```
+You might think that you can test two exact arrays or objects for equality, however, these are always false. This is because in JavaScript they are compared by reference so this will only be true if they both point to the same array reference:
+```javascript
+var array = [1,2,3]
+var arrayOne = array
+var arrayTwo = array
+arrayOne === arrayTwo // true
+
+```
+
+### 7. Type coercion
+JavaScript allows the use of double '==' or triple '===' comparison operators. You should always use triple, as double can have unintended consequences due to JavaScript trying to convert the values to the same type:
+```javascript
+1 == "1"  // true because "1" is converted to 1
+1 === "1" // false
+
+1 == true  // true because true is converted to 1
+1 === true // false
+```
+
+### 8. Unreliable `typeof`
+Don't use `typeof` as it will give unexpected results for complex types. A slightly ugly but reliable alternative is to use the `toString` method on the prototype:
+```javascript
+typeof {} // object
+typeof [] // object
+typeof /regex/ // object
+// You can call toString method on prototype instead:
+Object.prototype.toString.call({}) // "[object Object]"
+Object.prototype.toString.call([]) // "[object Array]"
+Object.prototype.toString.call(/regex/) // "[object RegExp]"
+```
