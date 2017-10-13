@@ -98,3 +98,50 @@ The simplified explanation of this issue is that a variable or function cannot b
     ```
 
 By extrapolating this use case into more complicated environments, implementing dependency handling solutions, such as RequireJS, may assist to track and handle dependency requirements.
+
+### 6. == comparison does not care for type
+```
+var x = 10;    
+var y = "10";   
+if (x == y)     //equals true
+if (x === y)    //equals false
+```
+
+### 7. Confusing addition and string concatonation 
+
+Both additon and string concatonation use + sign
+
+```
+var x = 10;
+var y = 5;
+var z = x + y;           // the result in z is 15
+```
+
+If you use + on 2 strings or a string and a number, it will result in concatonation. Be sure to check your variable types 
+
+```
+var x = 10;
+var y = "5";
+var z = x + y;           // the result in z is "105"
+```
+### 8. JS does not use named indexes for arrays
+
+JS only uses numeric indexes for arrays
+```
+var person = [];     
+person[0] = "John";     
+person[1] = "Doe";     
+person[2] = 46;     
+var x = person.length;         // person.length will return 3 .      
+var y = person[0];             // person[0] will return "John" .    
+```
+
+If the user attempts to assign a named index, JS automatically converts the array to an object and your array functions will no longer return values as expected
+```
+var person = [];
+person["firstName"] = "John";
+person["lastName"] = "Doe";
+person["age"] = 46;
+var x = person.length;         // person.length will return 0
+var y = person[0];             // person[0] will return undefined
+```
