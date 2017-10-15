@@ -76,12 +76,12 @@ printDate(object.scheduledDate);
 ```
    In this case if we expect that if ``` object.scheduledDate ``` is ``` undefined ``` then print current date or else print the scheduled date. But this *js-gotcha* will give unexpected result and you will loose half of your hair.
 
-### 5. Load scripts in order of dependency requirements. 
-The simplified explanation of this issue is that a variable or function cannot be referenced or called prior to being defined elsewhere in the code. Where scripts require other scripts, or content requires a particular loading order, this may become more complex. In the following example, script1.js is loaded after the testVar1 function executes, thus varInScript1 is not defined and errors in the browser. 
+### 5. Load scripts in order of dependency requirements.
+The simplified explanation of this issue is that a variable or function cannot be referenced or called prior to being defined elsewhere in the code. Where scripts require other scripts, or content requires a particular loading order, this may become more complex. In the following example, script1.js is loaded after the testVar1 function executes, thus varInScript1 is not defined and errors in the browser.
 
-    ``` 
+    ```
     <html>
-      <head>        
+      <head>
         <script type="text/javascript">
           function testVar1() {
               if (varInScript1) {
@@ -98,3 +98,22 @@ The simplified explanation of this issue is that a variable or function cannot b
     ```
 
 By extrapolating this use case into more complicated environments, implementing dependency handling solutions, such as RequireJS, may assist to track and handle dependency requirements.
+
+### X. There is only one type of number.
+Numbers of the javascript Number type can be written with either as whole numbers or as decimals.
+Unlike languages with distinct integer and float types, in javascript:
+```js
+0 === 0.0 // true
+```
+Numbers are stored in double-precision 64-bit binary format (a number between -2^53 -1 and 2^53 -1). Number also has three symbolic values: +Infinity (any number outside the largest possible number), -Infinity, and NaN.
+
+The lack of an integer type makes javascript calculations slower and less precise.
+For example, errors floating point arithmetic are common:
+```js
+let x = 0.2 + 0.1 // x will be 0.30000000000000004
+```
+
+This kind of error can be avoided by converting the numbers to a whole number during the calculation:
+```js
+let x = (0.2 * 10 + 0.1 * 10) / 10 // x will now be 0.3 as expected
+```
