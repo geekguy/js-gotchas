@@ -102,18 +102,17 @@ By extrapolating this use case into more complicated environments, implementing 
 ### 6. Javascript usage of 'This'. 
 ```js
     console.log(this); // Window object
-    ```
-    Default Binding of 'this': 
     
-    ```js
+    Default Binding of 'this': 
+
     function findThis() {
 	    console.log(this.x); 
     }
     var x = 5; 
     findThis();  // 5 
-    ```
+
     Implicit Binding of 'this': 
-    ```js
+
     function findThis() {
 	    console.log( this.x);  
     }
@@ -122,9 +121,9 @@ By extrapolating this use case into more complicated environments, implementing 
         findThis: findThis
     };
     object.findThis(); // 9
-    ```
+   
     Explicit Binding of 'This': 
-    ```js
+    
     function findThis() {
 	    console.log( this.x);  
     }
@@ -133,9 +132,9 @@ By extrapolating this use case into more complicated environments, implementing 
     };
     
     findThis.call(object); // 4
-    ```
+    
     New Binding of 'This': 
-    ```js
+
     function findThis() {
 	    this.x = x; 
     }
