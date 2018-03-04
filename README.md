@@ -98,3 +98,48 @@ The simplified explanation of this issue is that a variable or function cannot b
     ```
 
 By extrapolating this use case into more complicated environments, implementing dependency handling solutions, such as RequireJS, may assist to track and handle dependency requirements.
+
+### 6. Javascript usage of 'This'. 
+```js
+    console.log(this); // Window object
+    ```
+    Default Binding of 'this': 
+    
+    ```js
+    function findThis() {
+	    console.log(this.x); 
+    }
+    var x = 5; 
+    findThis();  // 5 
+    ```
+    Implicit Binding of 'this': 
+    ```js
+    function findThis() {
+	    console.log( this.x);  
+    }
+    var object = {
+        x: 9, 
+        findThis: findThis
+    };
+    object.findThis(); // 9
+    ```
+    Explicit Binding of 'This': 
+    ```js
+    function findThis() {
+	    console.log( this.x);  
+    }
+    var object = {
+    x: 4, 
+    };
+    
+    findThis.call(object); // 4
+    ```
+    New Binding of 'This': 
+    ```js
+    function findThis() {
+	    this.x = x; 
+    }
+    var y = new findThis(7); 
+    console.log(y.x); // 7 
+ ``` 
+These four examples show the most common usages of 'this' within javascript, inlcuding default, implicit, explicit, and new binding.  
