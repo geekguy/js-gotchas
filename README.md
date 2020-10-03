@@ -98,3 +98,19 @@ The simplified explanation of this issue is that a variable or function cannot b
     ```
 
 By extrapolating this use case into more complicated environments, implementing dependency handling solutions, such as RequireJS, may assist to track and handle dependency requirements.
+
+### 6. Function declaration in JS is hoisted but function expressions are not
+
+```js
+hoisted(); // prints on console "hoisted"
+
+function hoisted() {
+  console.log("hoisted");
+}
+
+notHoisted(); // throws error
+
+var notHoisted = function() {
+  console.log("Not hoisted");
+}
+```
